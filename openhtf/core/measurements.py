@@ -610,6 +610,10 @@ class Collection(mutablerecords.Record('Collection', ['_measurements'])):
     # Return the MeasuredValue's value, MeasuredValue will raise if not set.
     return self._measurements[name].measured_value.value
 
+  def add_validator(self, name, validator):
+    self._assert_valid_key(name)
+    self._measurements[name].with_validator(validator)
+
 
 def measures(*measurements, **kwargs):
   """Decorator-maker used to declare measurements for phases.
